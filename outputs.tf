@@ -7,4 +7,6 @@ output "arn" {
     var.account_id,
     var.resource_id
   ])
+
+  description = "The ARN in string form"
 }
