@@ -12,14 +12,8 @@ func TestAwsArn(t *testing.T) {
 	cases := []struct {
 		Name string
 		ARN  arn.ARN
+		Omit []string
 	}{
-		{
-			Name: "default partition",
-			ARN: arn.ARN{
-				Service:  "s3",
-				Resource: "bucket/key",
-			},
-		},
 		{
 			Name: "s3",
 			ARN: arn.ARN{
@@ -46,6 +40,15 @@ func TestAwsArn(t *testing.T) {
 				Resource:  "db:foo",
 			},
 		},
+		{
+			Name: "default partition",
+			ARN: arn.ARN{
+				Partition: "aws",
+				Service:   "s3",
+				Resource:  "bucket/key",
+			},
+			Omit: []string{"partition"},
+		},
 	}
 
 	for _, tc := range cases {
@@ -53,14 +56,19 @@ func TestAwsArn(t *testing.T) {
 		t.Run(tc.Name, func(t *testing.T) {
 			opts := &terraform.Options{
 				TerraformDir: "./",
-				Vars: deleteEmpty(map[string]interface{}{
+				Vars: map[string]interface{}{
 					"partition":   tc.ARN.Partition,
 					"service":     tc.ARN.Service,
 					"region":      tc.ARN.Region,
 					"account_id":  tc.ARN.AccountID,
 					"resource_id": tc.ARN.Resource,
-				}),
+				},
 			}
+
+			for _, key := range tc.Omit {
+				delete(opts.Vars, key)
+			}
+
 			defer terraform.Destroy(t, opts)
 
 			terraform.InitAndApply(t, opts)
@@ -69,7 +77,7 @@ func TestAwsArn(t *testing.T) {
 	}
 }
 
-func deleteEmpty(vars map[string]interface{}) map[string]interface{} {
+func omitEmpty(vars map[string]interface{}) map[string]interface{} {
 	out := make(map[string]interface{})
 	for k, v := range vars {
 		if str, ok := v.(string); ok {
