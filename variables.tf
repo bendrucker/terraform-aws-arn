@@ -1,6 +1,7 @@
 variable "partition" {
   type        = string
   description = "The partition in which the resource is located. A partition is a group of AWS Regions."
+  default     = "aws"
 }
 
 variable "service" {
@@ -11,11 +12,13 @@ variable "service" {
 variable "region" {
   type        = string
   description = "The Region. For example, us-east-2 for US East (Ohio)."
+  default     = ""
 }
 
 variable "account_id" {
   type        = string
   description = "The ID of the AWS account that owns the resource, without the hyphens. For example, 123456789012."
+  default     = ""
 }
 
 variable "resource_id" {
