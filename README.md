@@ -11,7 +11,7 @@ Use this module to construct:
 
 ## Usage
 
-Only the `service` and `resource_id` variables are required, since all ARNs include them. Variables `partition`, `account_id`, and `region` are optional and default to `""`. 
+Only the `service` and `resource_id` variables are required, since all ARNs include them. Variables `partition` (default: "aws"), `account_id` (default: ""), and `region` (default: "") are optional. 
 
 ```tf
 module "object" {
