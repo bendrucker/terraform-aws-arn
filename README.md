@@ -15,7 +15,7 @@ Only the `service` and `resource_id` variables are required, since all ARNs incl
 
 ```tf
 module "object" {
-  source = "bendrucker/arn/aws
+  source = "bendrucker/arn/aws"
 
   service     = "s3"
   resource_id = "my-bucket/my-object"
