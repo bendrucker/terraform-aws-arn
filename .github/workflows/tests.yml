@@ -12,7 +12,19 @@ jobs:
     - uses: hashicorp/setup-terraform@v1
       with: 
         terraform_wrapper: false
-    - name: terraform validate
-      run: terraform init && terraform validate
+    - run: terraform init
+    - run: terraform validate
+    - id: go-caches
+      run: |
+        echo "::set-output name=build::$(go env GOCACHE)"
+        echo "::set-output name=mod::$(go env GOMODCACHE)"
+    - uses: actions/cache@v2
+      with:
+        path: |
+          ${{ steps.go-caches.outputs.build }}
+          ${{ steps.go-caches.outputs.mod }}
+        key: ${{ runner.os }}-go-${{ hashFiles('**/go.sum') }}
+        restore-keys: |
+          ${{ runner.os }}-go-
     - name: Run tests
       run: go test -v ./...
