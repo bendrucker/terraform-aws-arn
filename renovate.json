@@ -4,7 +4,7 @@
     ":automergeMinor",
     ":automergeBranch"
   ],
-  "postUpdateOptions": {
-    "gomodTidy": true
-  }
+  "postUpdateOptions": [
+    "gomodTidy"
+  ]
 }
