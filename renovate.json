@@ -3,5 +3,8 @@
     "config:base",
     ":automergeMinor",
     ":automergeBranch"
-  ]
+  ],
+  "postUpdateOptions": {
+    "gomodTidy": true
+  }
 }
