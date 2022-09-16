@@ -5,26 +5,14 @@ jobs:
     runs-on: ubuntu-latest
     steps:
     - uses: actions/checkout@v3
-    - name: Setup go
-      uses: actions/setup-go@v3
+    - uses: actions/setup-go@v3
       with:
-        go-version: "1.17.3"
+        go-version-file: go.mod
+        cache: true
     - uses: hashicorp/setup-terraform@v2
       with: 
         terraform_wrapper: false
     - run: terraform init
     - run: terraform validate
-    - id: go-caches
-      run: |
-        echo "::set-output name=build::$(go env GOCACHE)"
-        echo "::set-output name=mod::$(go env GOMODCACHE)"
-    - uses: actions/cache@v3
-      with:
-        path: |
-          ${{ steps.go-caches.outputs.build }}
-          ${{ steps.go-caches.outputs.mod }}
-        key: ${{ runner.os }}-go-${{ hashFiles('**/go.sum') }}
-        restore-keys: |
-          ${{ runner.os }}-go-
     - name: Run tests
       run: go test -v ./...
