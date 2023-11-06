@@ -1,6 +1,6 @@
 module github.com/bendrucker/terraform-aws-arn
 
-go 1.21.1
+go 1.21.3
 
 require (
 	github.com/aws/aws-sdk-go v1.47.3
