@@ -3,7 +3,7 @@ module github.com/bendrucker/terraform-aws-arn
 go 1.22.2
 
 require (
-	github.com/aws/aws-sdk-go v1.51.18
+	github.com/aws/aws-sdk-go v1.51.19
 	github.com/gruntwork-io/terratest v0.46.13
 	github.com/stretchr/testify v1.9.0
 )
