@@ -1,6 +1,10 @@
 # terraform-aws-arn [![tests workflow status](https://github.com/bendrucker/terraform-aws-arn/workflows/tests/badge.svg?branch=master)](https://github.com/bendrucker/terraform-aws-arn/actions?query=workflow%3Atests) [![terraform module](https://img.shields.io/badge/terraform-module-623CE4)](https://registry.terraform.io/modules/bendrucker/arn/aws)
 
-> Terraform module that accepts the components of an AWS ARN and outputs the string form
+⚠️ **Deprecated:** Terraform 1.8+ users should use the AWS provider's [`arn_build`](https://registry.terraform.io/providers/hashicorp/aws/latest/docs/functions/arn_build) function.
+
+---
+
+> Terraform module that accepts the components of an AWS ARN and outputs the string form.
 
 This module provides the inverse to [`data.aws_arn`](https://www.terraform.io/docs/providers/aws/d/arn.html). Where possible, prefer refererring to an ARN directly (as an attribute of a resource or data source) rather than constructing it. 
 
